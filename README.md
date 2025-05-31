@@ -1,48 +1,74 @@
-# API Automation Project
 
-## 🧪 Features
+# 🧪 QA Automation Project (Python + Pytest)
 
-- Flask-based REST API
-- Full CRUD operations on `/users`
-- Automated tests using `pytest` + `requests`
-- HTML test reports
-- GitHub Actions CI pipeline
+A complete QA automation project built with **Python** and **Pytest**, focusing on testing CRUD operations for a course management system. Includes CI/CD integration via **GitHub Actions** and generates detailed HTML reports.
 
-## 🚀 How to Run
+## 📦 Project Structure
 
-### 1. Install dependencies
+```
+
+api-automation-project/
+│
+├── api-server/              # Optional: your backend app (Node.js or Flask)
+│   └── app.py
+│
+├── tests/                   # Automated tests using pytest
+│   ├── test\_courses.py
+│   └── conftest.py
+│
+├── reports/                 # HTML test reports
+│   └── report.html
+│
+├── .github/workflows/       # CI pipeline
+│   └── ci.yml
+│
+├── requirements.txt         # Python dependencies
+├── pytest.ini               # Pytest configuration
+├── README.md
+└── .gitignore
+
+````
+
+## ✅ Features
+
+- Test coverage for Add / Edit / Delete / List endpoints
+- Assertion of status codes, redirects, and content
+- Pytest-based structure with clean, modular test functions
+- HTML reports via `pytest-html`
+- Fully automated CI pipeline with GitHub Actions
+
+## 🚀 Run Locally
 
 ```bash
+git clone https://github.com/YOUR_USERNAME/api-automation-project.git
+cd api-automation-project
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
+pytest --html=reports/report.html
+````
+
+## 🔄 CI/CD – GitHub Actions
+
+The project runs all tests automatically on every push via GitHub Actions.
+The workflow file is located at:
+
+```
+.github/workflows/ci.yml
 ```
 
-### 2. Run the API server
+It:
 
-```bash
-python api-server/app.py
+* Installs Python
+* Installs dependencies
+* Runs pytest
+* Fails build on test failure
+
+## 🧪 Sample Test Code
+
+```python
+def test_add_course():
+    res = requests.post("http://localhost:3030/Crs/Add", data={"name": "Python QA Course"})
+    assert res.status_code in [200, 302]
 ```
 
-### 3. Run the tests
-
-```bash
-pytest
-```
-
-## ✅ Sample Endpoints
-
-- `POST /users`
-- `GET /users`
-- `GET /users/<id>`
-- `PUT /users/<id>`
-- `DELETE /users/<id>`
-
-## 📊 HTML Report
-
-Generated after test run at `reports/report.html`.
-
-## 🛠️ GitHub Actions CI
-
-On each push/pull request:
-- Installs dependencies
-- Runs pytest
-- Generates HTML test report
